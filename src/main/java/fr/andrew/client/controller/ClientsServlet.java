@@ -20,15 +20,17 @@ public class ClientsServlet extends HttpServlet {
     private static Logger LOGGER = LoggerFactory.getLogger(ClientsServlet.class);
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        LOGGER.info("[CONTROLLER] Appelle du controller ClientsServlet [doPost]");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        LOGGER.info("[CONTROLLER] Appelle du controller ClientsServlet [doGet]");
 
         ArrayList<Client> client = clientsBusiness.findAllBusiness();
 
         request.setAttribute("client",client);
-        
+
+        LOGGER.info("[CONTROLLER] Nombre de client : {}", client.size());
         this.getServletContext().getRequestDispatcher("/WEB-INF/client/clients.jsp").forward(request,response);
     }
 }

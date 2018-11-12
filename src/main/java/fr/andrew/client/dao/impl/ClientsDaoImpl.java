@@ -2,6 +2,8 @@ package fr.andrew.client.dao.impl;
 
 import fr.andrew.client.dao.IClientsDao;
 import fr.andrew.client.domain.Client;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,9 +12,12 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class ClientsDaoImpl implements IClientsDao {
+    private static Logger LOGGER = LoggerFactory.getLogger(ClientsDaoImpl.class);
 
     @Override
     public ArrayList<Client> findAllDao() {
+        LOGGER.info("[DAO] Appelle du Dao findAllDao()");
+
         ArrayList<Client> clients = new ArrayList<>();
         try{
             Class.forName("org.mariadb.jdbc.Driver");
@@ -38,13 +43,16 @@ public class ClientsDaoImpl implements IClientsDao {
                 clients.add(client);
             }
         }catch (Exception e){
-            e.printStackTrace();
+            LOGGER.error("[DAO] {}", e.getMessage());
         }
+        LOGGER.info("[DAO] nombre de client {} : ", clients.size());
         return clients;
     }
 
     @Override
     public Client findOneByIdDao(Integer id) {
+        LOGGER.error("[DAO] Appelle du Dao findOneByIdDao()");
+
         try {
             Class.forName("org.mariadb.jdbc.Driver");
             String url = "jdbc:mariadb://localhost:3306/pizzeria";
@@ -68,16 +76,19 @@ public class ClientsDaoImpl implements IClientsDao {
 
                 Client client = new Client(idBD,numClient,nom,prenom,adresse,telFixe,telPortable,dateNaissance,email);
 
+                LOGGER.info("[DAO] INFO client {} | {} | {} | {} | {} | {} | {} | {} | {}", id, numClient, nom, prenom, adresse, telFixe, telPortable, dateNaissance, email);
                 return client;
             }
         }catch (Exception e){
-            e.printStackTrace();
+            LOGGER.error("[DAO] {}", e.getMessage());
         }
         return null;
     }
 
     @Override
     public Void addClientDao(Integer numClient, String nom, String prenom, String adresse, String telFixe, String telPortable, String dateNaissance, String email) {
+        LOGGER.info("[DAO] Appelle du Dao addClientDao()");
+
         try{
             Class.forName("org.mariadb.jdbc.Driver");
             Connection connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/pizzeria", "root", "andrew");
@@ -93,13 +104,15 @@ public class ClientsDaoImpl implements IClientsDao {
             preparedStatement.executeUpdate();
 
         }catch (Exception e){
-            e.printStackTrace();
+            LOGGER.error("[DAO] {}", e.getMessage());
         }
         return null;
     }
 
     @Override
     public Void modifierClientDao(Integer numClient, String nom, String prenom, String adresse, String telFixe, String telPortable, String dateNaissance, String email, Integer id) {
+        LOGGER.info("[DAO] Appelle du Dao modifierClientDao()");
+
         try{
             Class.forName("org.mariadb.jdbc.Driver");
             Connection connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/pizzeria","root","andrew");
@@ -115,13 +128,15 @@ public class ClientsDaoImpl implements IClientsDao {
             preparedStatement.setInt(9,id);
         preparedStatement.executeUpdate();
         }catch (Exception e){
-            e.printStackTrace();
+            LOGGER.error("[DAO] {}", e.getMessage());
         }
         return null;
     }
 
     @Override
     public Void deleteClientDao(Integer id) {
+        LOGGER.info("[DAO] Appelle du Dao deleteClientDao()");
+
         try {
             Class.forName("org.mariadb.jdbc.Driver");
             Connection connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/pizzeria","root","andrew");
@@ -129,7 +144,7 @@ public class ClientsDaoImpl implements IClientsDao {
                 preparedStatement.setInt(1,id);
             preparedStatement.executeUpdate();
         }catch (Exception e){
-            e.printStackTrace();
+            LOGGER.error("[DAO] {}", e.getMessage());
         }
         return null;
     }
