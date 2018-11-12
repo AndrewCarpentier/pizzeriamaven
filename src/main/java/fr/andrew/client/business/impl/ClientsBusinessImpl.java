@@ -20,6 +20,7 @@ public class ClientsBusinessImpl implements IClientsBusiness {
         LOGGER.info("[BUSINESS] Appelle du Business findAllBusiness()");
 
         ArrayList<Client> client = clientsDao.findAllDao();
+
         LOGGER.info("[BUSINESS]nombre de client : {}", client.size());
         return client;
     }
@@ -30,6 +31,8 @@ public class ClientsBusinessImpl implements IClientsBusiness {
 
         Client client = clientsDao.findOneByIdDao(id);
         Utils.verifierEmail(client.getEmail());
+        Utils.verifierTelPortable(client.getTelPortable());
+        Utils.verifierTelFixe(client.getTelFixe());
         LOGGER.info("[BUSINESS] INFO client {} | {} | {} | {} | {} | {} | {} | {} | {}", client.getId(), client.getNumClient(), client.getNom(), client.getPrenom(), client.getAdresse(), client.getTelFixe(), client.getTelPortable(), client.getDateNaissance(), client.getEmail());
         return client;
     }

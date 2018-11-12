@@ -51,7 +51,7 @@ public class ClientsDaoImpl implements IClientsDao {
 
     @Override
     public Client findOneByIdDao(Integer id) {
-        LOGGER.error("[DAO] Appelle du Dao findOneByIdDao()");
+        LOGGER.info("[DAO] Appelle du Dao findOneByIdDao()");
 
         try {
             Class.forName("org.mariadb.jdbc.Driver");

@@ -21,7 +21,6 @@
         <li class="list-group-item list-group-item-secondary">Nom : ${client.nom}</li>
         <li class="list-group-item list-group-item-success">Prenom : ${client.prenom}</li>
         <li class="list-group-item list-group-item-danger">Adresse : ${client.adresse}</li>
-        <li class="list-group-item list-group-item-warning">Tel Fixe : ${client.telFixe}</li>
         <li class="list-group-item list-group-item-info">Tel Fixe : ${client.telFixe}</li>
         <li class="list-group-item list-group-item-info">Tel Portable : ${client.telPortable}</li>
         <li class="list-group-item list-group-item-light">Date de naissance : ${client.dateNaissance}</li>
